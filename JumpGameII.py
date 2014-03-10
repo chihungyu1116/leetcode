@@ -34,5 +34,31 @@ class Solution:
         
         return min(r)
 
+# Solution 2 ( O(n) solution )
 
-# Dynamic Programming solution:
+class Solution:
+    # @param A, a list of integers
+    # @return an integer
+    def jump(self, A):
+        lenA = len(A)
+        if lenA == 1:
+            return 0
+        i = currentMax = jumps = 0
+        
+        while i < lenA:
+            currentMax = A[i] + i
+            if A[i] > 0:
+                jumps += 1
+            else:
+                return 0
+            
+            if currentMax >= lenA - 1:
+                return jumps
+            
+            tempMax = 0
+            for j in range(i+1, currentMax + 1):
+                if A[j] + j >= tempMax:
+                    tempMax = A[j] + j
+                    i = j
+                    
+        return jumps
